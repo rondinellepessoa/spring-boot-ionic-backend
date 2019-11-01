@@ -87,7 +87,7 @@ public class CursomcApplication implements CommandLineRunner{
 		cli1.getEnderecos().addAll(Arrays.asList(end1, end2));
 		
 		clienteRepository.save(cli1);
-		enderecoRepository.saveAll(Arrays.asList(end1, end2));
+		enderecoRepository.saveAll(Arrays.asList(end1, end2)); 
 		
 	}
 
