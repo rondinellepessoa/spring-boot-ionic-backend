@@ -16,7 +16,7 @@ public class PedidoService {
 	@Autowired
 	private PedidoRepository repo;
 	
-	public Pedido buscar(Long id) {
+	public Pedido find(Long id) {
 		Optional<Pedido> categoria = repo.findById(id);
 		
 		if(!categoria.isPresent()) {

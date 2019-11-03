@@ -16,7 +16,7 @@ public class ClienteService {
 	@Autowired
 	private ClienteRepository repo;
 	
-	public Cliente buscar(Long id) {
+	public Cliente find(Long id) {
 		Optional<Cliente> cliente = repo.findById(id);
 		
 		if(!cliente.isPresent()) {
