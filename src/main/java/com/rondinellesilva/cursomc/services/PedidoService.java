@@ -23,6 +23,6 @@ public class PedidoService {
 			throw new ObjectNotFoundException("Objeto não encontrado! Id: " + id
 					+ ", Tipo: " + Pedido.class.getName());
 		}
-		return categoria.orElse(null);
+		return categoria.orElse(new Pedido());
 	}
 }
