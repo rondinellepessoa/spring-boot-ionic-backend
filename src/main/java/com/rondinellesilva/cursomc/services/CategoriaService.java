@@ -15,19 +15,18 @@ import com.rondinellesilva.cursomc.dto.CategoriaDTO;
 import com.rondinellesilva.cursomc.repositories.CategoriaRepository;
 import com.rondinellesilva.cursomc.services.exceptions.ObjectNotFoundException;
 
-
 @Service
 public class CategoriaService {
 
 	@Autowired
 	private CategoriaRepository repo;
-	
+
 	public Categoria find(Long id) {
 		Optional<Categoria> categoria = repo.findById(id);
-		
-		if(!categoria.isPresent()) {
-			throw new ObjectNotFoundException("Objeto não encontrado! Id: " + id
-					+ ", Tipo: " + Categoria.class.getName());
+
+		if (!categoria.isPresent()) {
+			throw new ObjectNotFoundException(
+					"Objeto não encontrado! Id: " + id + ", Tipo: " + Categoria.class.getName());
 		}
 		return categoria.orElse(new Categoria());
 	}
@@ -46,7 +45,7 @@ public class CategoriaService {
 	public void delete(Long id) {
 		find(id);
 		try {
-			repo.deleteById(id);		
+			repo.deleteById(id);
 		} catch (DataIntegrityViolationException e) {
 			throw new DataIntegrityViolationException("Não é possível excluir uma categoria que possui produtos.");
 		}
@@ -55,16 +54,16 @@ public class CategoriaService {
 	public List<Categoria> findAll() {
 		return repo.findAll();
 	}
-	
-	public Page<Categoria> findPage(Integer page, Integer linesPage, String direction,String orderBy){
+
+	public Page<Categoria> findPage(Integer page, Integer linesPage, String direction, String orderBy) {
 		PageRequest pageRequest = PageRequest.of(page, linesPage, Direction.valueOf(direction), orderBy);
 		return repo.findAll(pageRequest);
 	}
-	
+
 	public Categoria fromDTO(CategoriaDTO dto) {
 		return new Categoria(dto.getId(), dto.getNome());
 	}
-	
+
 	private void updateData(Categoria newObj, Categoria obj) {
 		newObj.setNome(obj.getNome());
 	}
