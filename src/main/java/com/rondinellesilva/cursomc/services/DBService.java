@@ -20,6 +20,7 @@ import com.rondinellesilva.cursomc.domain.PagamentoComCartao;
 import com.rondinellesilva.cursomc.domain.Pedido;
 import com.rondinellesilva.cursomc.domain.Produto;
 import com.rondinellesilva.cursomc.domain.enums.EstadoPagamento;
+import com.rondinellesilva.cursomc.domain.enums.Perfil;
 import com.rondinellesilva.cursomc.domain.enums.TipoCliente;
 import com.rondinellesilva.cursomc.repositories.CategoriaRepository;
 import com.rondinellesilva.cursomc.repositories.CidadeRepository;
@@ -124,14 +125,20 @@ public class DBService {
 
 		Cliente cli1 = new Cliente(null, "Maria", "rondinellepessoa@gmail.com", "12345", TipoCliente.PESSOAFISICA, pe.encode("123"));
 		cli1.getTelefones().addAll(Arrays.asList("21212121", "54657654"));
+		
+		Cliente cli2 = new Cliente(null, "Ana Costa", "rondinellepessoa1@gmail.com", "67890", TipoCliente.PESSOAFISICA, pe.encode("123"));
+		cli1.getTelefones().addAll(Arrays.asList("4354355365", "2326787687"));
+		cli2.addPerfil(Perfil.ADMIN);
 
 		Endereco end1 = new Endereco(null, "Rua Flores", "300", "Apto 303", "Jardim", "60467345", cli1, c1);
 		Endereco end2 = new Endereco(null, "Rua Jatoba", "2002", "Casa 21", "Jobao", "23456567", cli1, c2);
-
+		Endereco end3 = new Endereco(null, "Rua Floriano", "2106", null, "Sao Marcos", "123456788", cli2, c2);
+		
 		cli1.getEnderecos().addAll(Arrays.asList(end1, end2));
+		cli2.getEnderecos().addAll(Arrays.asList(end3));
 
-		clienteRepository.save(cli1);
-		enderecoRepository.saveAll(Arrays.asList(end1, end2));
+		clienteRepository.saveAll(Arrays.asList(cli1, cli2));
+		enderecoRepository.saveAll(Arrays.asList(end1, end2, end3));
 
 		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm");
 		Pedido ped1 = new Pedido(null, sdf.parse("30/09/2017 10:32"), cli1, end1);
